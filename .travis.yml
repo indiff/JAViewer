@@ -1,0 +1,32 @@
+language: android
+
+jdk:
+  - oraclejdk8
+
+notifications:
+  email: false
+
+sudo: false
+
+android:
+  components:
+    - tools
+    - build-tools-26.0.2
+    - android-26
+    - extra-android-m2repository
+    - extra-android-support
+
+before_install:
+ - chmod +x gradlew
+
+script:
+  - ./gradlew assembleRelease
+
+deploy:
+  provider: releases
+  api_key:
+    secure: 4f05e951b23586db571b5b4ef735d90bb8506939 
+  file: app/build/outputs/apk/app-release.apk
+  skip_cleanup: true
+  on:
+    tags: true
