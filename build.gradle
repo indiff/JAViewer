@@ -4,7 +4,7 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven { url 'https://maven.fabric.io/public' }
+        // maven { url 'https://maven.fabric.io/public' }
         maven { url 'https://dl.bintray.com/android/android-tools' }
     }
     dependencies {
