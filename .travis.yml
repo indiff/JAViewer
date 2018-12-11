@@ -25,8 +25,9 @@ script:
 
 before_deploy:       # 部署之前
   # 使用 mv 命令进行修改apk文件的名字
-  - ls app/build/outputs/apk/release
-  - mv app/build/outputs/apk/app-release-unsigned.apk app/build/outputs/apk/buff.apk  
+  - ls  -h app/build/outputs/apk/release
+  - cat output.json
+  #- mv app/build/outputs/apk/app-release-unsigned.apk app/build/outputs/apk/buff.apk  
   - git config --local user.name "indiff"
   - git config --local user.email "indiff@126.com"
   - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
@@ -36,6 +37,6 @@ deploy:              # 部署
   provider: releases # 部署到GitHub Release，除此之外，Travis CI还支持发布到fir.im、AWS、Google App Engine等
   api_key:           # 填写GitHub的token （Settings -> Personal access tokens -> Generate new token）
     secure: 4f05e951b23586db571b5b4ef735d90bb8506939 
-  file: app/build/outputs/apk/buff.apk   # 部署文件路径
+  file: app/build/outputs/apk/app-release-unsigned.apk   # 部署文件路径
   skip_cleanup: true     # 设置为true以跳过清理,不然apk文件就会被清理
   
