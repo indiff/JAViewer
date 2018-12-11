@@ -25,7 +25,8 @@ script:
 
 before_deploy:       # 部署之前
   # 使用 mv 命令进行修改apk文件的名字
-  - mv app/build/outputs/apk/app-release.apk app/build/outputs/apk/buff.apk  
+  - ls app/build/outputs/apk/
+  - mv app/build/outputs/apk/*.apk app/build/outputs/apk/buff.apk  
   - git config --local user.name "indiff"
   - git config --local user.email "indiff@126.com"
   - export TRAVIS_TAG=${TRAVIS_TAG:-$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)}
