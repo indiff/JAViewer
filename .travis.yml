@@ -26,7 +26,7 @@ script:
 before_deploy:       # 部署之前
   # 使用 mv 命令进行修改apk文件的名字
   - ls  -h app/build/outputs/apk/release
-  - cat output.json
+  - cat app/build/outputs/apk/release/output.json
   #- mv app/build/outputs/apk/app-release-unsigned.apk app/build/outputs/apk/buff.apk  
   - git config --local user.name "indiff"
   - git config --local user.email "indiff@126.com"
