@@ -57,6 +57,7 @@ deploy:              # 部署
   # 设置为true以跳过清理,不然apk文件就会被清理
   skip_cleanup: true
     on:
-      tags: true  
+      tags: true
+      
 
   
