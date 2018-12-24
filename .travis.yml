@@ -3,6 +3,10 @@ language: android
 jdk:
   - oraclejdk8
 
+addons:
+  apt:
+    update: true
+
 notifications:
   email: false
 
@@ -11,21 +15,33 @@ sudo: false
 android:
   components:
     - tools
+	- platform-tools
     - build-tools-28.0.3
     - android-28
+	- extra-google-m2repository
     - extra-android-m2repository
     - extra-android-support
 
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+
+cache:
+  directories:
+    - "$HOME/.gradle/caches/"
+    - "$HOME/.gradle/wrapper/"
+
+
 before_install:
+ - sudo apt-get install -y gnupg2
  - chmod +x gradlew
 
 script:
-  - ./gradlew assembleRelease
+  - "./gradlew --info assembleRelease"
 
 
 before_deploy:       # 部署之前
   # 使用 mv 命令进行修改apk文件的名字
-  - ls  -h app/build/outputs/apk/release
+  - ls  -h app/build/build/outputs/apk/release
   - cat app/build/outputs/apk/release/output.json
   #- mv app/build/outputs/apk/app-release-unsigned.apk app/build/outputs/apk/buff.apk  
   - git config --local user.name "indiff"
@@ -37,8 +53,10 @@ deploy:              # 部署
   provider: releases # 部署到GitHub Release，除此之外，Travis CI还支持发布到fir.im、AWS、Google App Engine等
   api_key: 4f05e951b23586db571b5b4ef735d90bb8506939           # 填写GitHub的token （Settings -> Personal access tokens -> Generate new token）
     # secure: 4f05e951b23586db571b5b4ef735d90bb8506939 
-  file: app/build/outputs/apk/app-release-unsigned.apk   # 部署文件路径
+  file: app/build/build/outputs/apk/release/app-release.apk   # 部署文件路径
   # 设置为true以跳过清理,不然apk文件就会被清理
-  skip_cleanup: true     
+  skip_cleanup: true
+    on:
+      tags: true  
 
   
