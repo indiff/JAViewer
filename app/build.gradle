@@ -2,6 +2,27 @@ apply plugin: 'com.android.application'
 apply plugin: 'io.fabric'
 
 android {
+    /*签名信息
+    signingConfigs {
+        toutoumu {
+            keyAlias 'toutoumu'
+            keyPassword '123456'
+            storeFile file('./toutoumu.jks')
+            storePassword '198868'
+        }
+    }*/
+
+    /*签名信息*/
+    signingConfigs {
+        release {
+            keyAlias 'dalianmao'
+            keyPassword 'dalianmao'
+            storeFile file('./dalianmao.jks')
+            storePassword 'dalianmao'
+        }
+    }
+
+
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
 
@@ -13,12 +34,15 @@ android {
         versionName "2.0.0-alpha 1"
 
     }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
@@ -29,8 +53,6 @@ allprojects {
     repositories {
         maven { url "https://jitpack.io" }
         maven { url 'https://maven.fabric.io/public' }
-        maven { url 'https://jcenter.bintray.com' }
-        maven { url 'http://repo.spring.io/libs-release/' }
     }
 }
 
@@ -65,12 +87,7 @@ dependencies {
 
     //Player
     implementation 'cn.jzvd:jiaozivideoplayer:6.2.12'
-    //implementation 'com.google.android.exoplayer:exoplayer:2.8.2'
-    implementation('com.google.android.exoplayer:exoplayer:2.8.2@aar') {
-        transitive = true;
-    }
-   // runtime group: 'com.google.android.exoplayer', name: 'exoplayer-core', version: '2.8.3'
-
+    implementation 'com.google.android.exoplayer:exoplayer:2.8.2'
     //Firebase
     implementation 'com.google.firebase:firebase-auth:16.0.5'
 
